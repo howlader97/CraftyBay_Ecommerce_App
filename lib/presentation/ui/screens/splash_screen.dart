@@ -1,0 +1,49 @@
+import 'package:craftybay_ecommerce_app/presentation/ui/screens/home_screen.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/utility/image_assets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    gotoNextScreen();
+  }
+
+  void gotoNextScreen() async {
+    Future.delayed(Duration(seconds: 2)).then((value) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+        (route) => false,
+      );
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Spacer(),
+            SvgPicture.asset(ImageAssets.baseUrl, width: 100),
+            Spacer(),
+            CircularProgressIndicator(color: Color(0xFF07ADAE)),
+            const SizedBox(height: 20),
+            Text("Version 1.0.0"),
+            const SizedBox(height: 15),
+          ],
+        ),
+      ),
+    );
+  }
+}
