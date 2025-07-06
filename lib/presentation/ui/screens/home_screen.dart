@@ -1,17 +1,19 @@
-import 'package:carousel_slider/carousel_slider.dart';
+
+import 'package:craftybay_ecommerce_app/presentation/ui/screens/category_list_screen.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/screens/product_list_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/image_assets.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/category_card.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/circular_icon_button.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/home/home_section_title.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/home/home_slider.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
-   HomeScreen({super.key});
-
-
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,19 +53,63 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               HomeSlider(),
-              const SizedBox(height: 7,),
-              HomeSectionTitle(title:"Categories",onTap: (){},),
+              const SizedBox(height: 7),
+              HomeSectionTitle(title: "Categories", onTap: () {
+                Get.to(CategoryListScreen());
+              }),
               SizedBox(
                 height: 90,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                    itemCount: 10,
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return CategoryCard();
+                  },
+                ),
+              ),
+              const SizedBox(height: 3),
+              HomeSectionTitle(title: "Popular", onTap: () {
+                Get.to(ProductListScreen());
+              }),
+              SizedBox(
+                height: 170,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 20,
                     itemBuilder: (context,index){
-                      return CategoryCard();
+                  return ProductCard();
+                }),
+              ),
+              const SizedBox(height: 3),
+              HomeSectionTitle(title: "Special", onTap: () {
+                Get.to(ProductListScreen());
+              }),
+              SizedBox(
+                height: 170,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 20,
+                    itemBuilder: (context,index){
+                      return ProductCard();
                     }),
               ),
-              const SizedBox(height: 3,),
-              HomeSectionTitle(title:"Popular",onTap: (){},),
+              const SizedBox(height: 3),
+              HomeSectionTitle(title: "New", onTap: () {
+                Get.to(ProductListScreen());
+              }),
+              SizedBox(
+                height: 170,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 20,
+                    itemBuilder: (context,index){
+                      return ProductCard();
+                    }),
+              )
+
             ],
           ),
         ),
@@ -71,9 +117,5 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-
 
 
