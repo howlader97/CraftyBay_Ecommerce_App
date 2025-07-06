@@ -15,7 +15,7 @@ class CompleteProfileScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                const SizedBox(height: 65),
+
                 Center(child: SvgPicture.asset(ImageAssets.baseUrl, width: 100)),
                 const SizedBox(height: 14),
                 Text(

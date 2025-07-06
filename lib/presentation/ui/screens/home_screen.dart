@@ -1,10 +1,79 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/utility/image_assets.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/widgets/category_card.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/widgets/circular_icon_button.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/widgets/home/home_section_title.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/widgets/home/home_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+   HomeScreen({super.key});
+
+
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: [
+            SvgPicture.asset(ImageAssets.logoNavSvg),
+            Spacer(),
+            CircularIconButton(icon: Icons.person, onTap: () {}),
+            const SizedBox(width: 8),
+            CircularIconButton(icon: Icons.call, onTap: () {}),
+            const SizedBox(width: 8),
+            CircularIconButton(icon: Icons.notifications_none, onTap: () {}),
+          ],
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey.shade100,
+                  prefixIcon: Icon(Icons.search, color: AppColors.primaryColor),
+                  hintText: "Search",
+                  border: OutlineInputBorder(borderSide: BorderSide.none),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              HomeSlider(),
+              const SizedBox(height: 7,),
+              HomeSectionTitle(title:"Categories",onTap: (){},),
+              SizedBox(
+                height: 90,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                    itemCount: 10,
+                    itemBuilder: (context,index){
+                      return CategoryCard();
+                    }),
+              ),
+              const SizedBox(height: 3,),
+              HomeSectionTitle(title:"Popular",onTap: (){},),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
+
+
+
+
+
+
