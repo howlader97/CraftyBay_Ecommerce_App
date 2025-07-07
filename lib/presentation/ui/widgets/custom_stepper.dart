@@ -20,7 +20,7 @@ class CustomStepper extends StatelessWidget {
     required this.onChange,
   });
 
-  final StepperController _controller = Get.put(StepperController());
+  final StepperController _controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
