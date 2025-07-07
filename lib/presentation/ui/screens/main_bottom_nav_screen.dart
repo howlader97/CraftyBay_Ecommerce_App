@@ -1,4 +1,4 @@
-import 'package:craftybay_ecommerce_app/controller/main_bottom_nav_controller.dart';
+import 'package:craftybay_ecommerce_app/presentation/state_holders/main_bottom_nav_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/cart_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/category_list_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/home_screen.dart';
@@ -9,16 +9,12 @@ import 'package:get/get.dart';
 class MainBottomNavScreen extends StatelessWidget {
    MainBottomNavScreen({super.key});
 
-   final MainBottomNavController controller=Get.put(MainBottomNavController());
-
-
   List<Widget> _screens= [
     HomeScreen(),
     CategoryListScreen(),
     CartScreen(),
     WishListScreen(),
   ];
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<MainBottomNavController>(
