@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-   ProductDetailsScreen({super.key});
+  ProductDetailsScreen({super.key});
 
-  List<Color> colors=[
+  List<Color> colors = [
     Colors.deepOrange,
     Colors.amber,
     Colors.blue,
@@ -17,7 +17,12 @@ class ProductDetailsScreen extends StatelessWidget {
     Colors.pink,
   ];
 
-   final SelectedColorController _colorController = Get.put(SelectedColorController());
+  List<String> sizes = ["S", "M", "L", "XL", "XXL"];
+
+  final SelectedColorController _colorController = Get.put(
+    SelectedColorController(),
+  );
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -112,29 +117,96 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Text("Color",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700,color: Colors.black),),
-                  const SizedBox(height: 8,),
+                  Text(
+                    "Color",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
                   SizedBox(
-                    height: 20,
-                    child:ListView.builder(
+                    height: 28,
+                    child: ListView.separated(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemCount: colors.length,
                       itemBuilder: (context, index) {
-                        return Obx(()=> InkWell(
+                        return Obx(
+                          () => InkWell(
                             borderRadius: BorderRadius.circular(20),
                             onTap: () => _colorController.selectColor(index),
                             child: CircleAvatar(
+                              radius: 18,
                               backgroundColor: colors[index],
-                              child: _colorController.selectedIndex.value == index
-                                  ? const Icon(Icons.done, color: Colors.white,size: 15,)
-                                  : SizedBox.shrink(),
+                              child:
+                                  _colorController.selectedIndex.value == index
+                                      ? const Icon(
+                                        Icons.done,
+                                        color: Colors.white,
+                                        size: 15,
+                                      )
+                                      : SizedBox.shrink(),
                             ),
                           ),
                         );
                       },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(width: 8);
+                      },
                     ),
                   ),
+                  const SizedBox(height: 5),
+                  Text(
+                    "Size",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  SizedBox(
+                    height: 28,
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: sizes.length,
+                      itemBuilder: (context, index) {
+                        return Obx(
+                              () => InkWell(
+                            borderRadius: BorderRadius.circular(20),
+                            onTap:
+                                () => _colorController.selectedSizeIndex(index),
+                            child: CircleAvatar(
+                              radius: 18,
+                              backgroundColor: AppColors.primaryColor,
+                              child:
+                              _colorController.selectedSizeIndex.value ==
+                                  index
+                                  ? Padding(
+                                padding: const EdgeInsets.all(1.0),
+                                child: Text(
+                                  sizes[index],
+                                  style: TextStyle(
+
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              )
+                                  : CircleAvatar(child: Text(sizes[index]),),
+                            ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(width: 8);
+                      },
+                    ),
+                  ),
+
                 ],
               ),
             ),
