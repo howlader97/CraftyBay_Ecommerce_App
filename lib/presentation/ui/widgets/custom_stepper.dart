@@ -54,6 +54,7 @@ class CustomStepper extends StatelessWidget {
               child: const Icon(
                 Icons.remove,
                 color: Colors.black54,
+                size: 18,
               ),
             ),
           ),
@@ -81,6 +82,7 @@ class CustomStepper extends StatelessWidget {
               child: const Icon(
                 Icons.add,
                 color: Colors.black54,
+                size: 18,
               ),
             ),
           ),
