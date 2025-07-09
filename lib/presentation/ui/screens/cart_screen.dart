@@ -1,8 +1,6 @@
 import 'package:craftybay_ecommerce_app/presentation/state_holders/main_bottom_nav_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
-import 'package:craftybay_ecommerce_app/presentation/ui/utility/image_assets.dart';
-import 'package:craftybay_ecommerce_app/presentation/ui/widgets/card_product_card.dart';
-import 'package:craftybay_ecommerce_app/presentation/ui/widgets/custom_stepper.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/widgets/cart_product_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -34,7 +32,7 @@ class CartScreen extends StatelessWidget {
                 shrinkWrap: true,
                   itemCount:16,
                   itemBuilder: (context,index){
-                return CardProductCard();
+                return CartProductCart();
               }),
             ),
 

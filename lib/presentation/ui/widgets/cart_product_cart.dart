@@ -3,8 +3,8 @@ import 'package:craftybay_ecommerce_app/presentation/ui/utility/image_assets.dar
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/custom_stepper.dart';
 import 'package:flutter/material.dart';
 
-class CardProductCard extends StatelessWidget {
-  const CardProductCard({
+class CartProductCart extends StatelessWidget {
+  const CartProductCart({
     super.key,
   });
 
