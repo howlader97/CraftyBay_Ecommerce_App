@@ -36,17 +36,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     Stack(
                       children: [
                         ProductImageSlider(),
-                        AppBar(
-                          leading: BackButton(color: Colors.black54),
-                          title: Center(
-                            child: Text(
-                              "Product Details",
-                              style: TextStyle(color: Colors.black54),
-                            ),
-                          ),
-                          backgroundColor: Colors.transparent,
-                          elevation: 0,
-                        ),
+                        ProductDetailsAppBar,
                       ],
                     ),
                     Padding(
@@ -238,53 +228,71 @@ class ProductDetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              decoration: BoxDecoration(
-                color: AppColors.primaryColor.withAlpha(20),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                )
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "price",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black54,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const SizedBox(height: 4,),
-                      Text(
-                        "\$509",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 120,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text("Add to Cart",style: TextStyle(color: Colors.black),),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            cartToCartBottomContainer,
           ],
         ),
       ),
     );
+  }
+
+  AppBar get ProductDetailsAppBar {
+    return AppBar(
+                        leading: BackButton(color: Colors.black54),
+                        title: Center(
+                          child: Text(
+                            "Product Details",
+                            style: TextStyle(color: Colors.black54),
+                          ),
+                        ),
+                        backgroundColor: Colors.transparent,
+                        elevation: 0,
+                      );
+  }
+
+  Container get cartToCartBottomContainer {
+    return Container(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            decoration: BoxDecoration(
+              color: AppColors.primaryColor.withAlpha(20),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              )
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "price",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black54,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 4,),
+                    Text(
+                      "\$509",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 120,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text("Add to Cart",style: TextStyle(color: Colors.black),),
+                  ),
+                ),
+              ],
+            ),
+          );
   }
 }

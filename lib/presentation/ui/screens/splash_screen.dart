@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void gotoNextScreen() async {
     Future.delayed(Duration(seconds: 2)).then((value) {
-     Get.offAll(MainBottomNavScreen());
+     Get.offAll(EmailVerificationScreen());
     });
   }
   @override

@@ -5,7 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class EmailVerificationScreen extends StatelessWidget {
-  const EmailVerificationScreen({super.key});
+   EmailVerificationScreen({super.key});
+
+  final TextEditingController _emailTEController=TextEditingController();
+  final GlobalKey<FormState> _formKey=GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -13,41 +16,55 @@ class EmailVerificationScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              const SizedBox(height: 80),
-              Center(child: SvgPicture.asset(ImageAssets.baseUrl, width: 100)),
-              const SizedBox(height: 14),
-              Text(
-                "Welcome Back",
-                style: Theme.of(
-                  context,
-                ).textTheme.titleLarge?.copyWith(fontSize: 28),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                "Please enter your email address",
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(color: Colors.grey),
-              ),
-              const SizedBox(height: 12),
-              TextFormField(
-                decoration: InputDecoration(
-                  hintText: "Email"
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                const SizedBox(height: 80),
+                Center(child: SvgPicture.asset(ImageAssets.baseUrl, width: 100)),
+                const SizedBox(height: 14),
+                Text(
+                  "Welcome Back",
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontSize: 28),
                 ),
-              ),
-              const SizedBox(height: 16),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Get.to(OtpVerificationScreen());
+                const SizedBox(height: 4),
+                Text(
+                  "Please enter your email address",
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleMedium?.copyWith(color: Colors.grey),
+                ),
+                const SizedBox(height: 12),
+                TextFormField(
+                  controller: _emailTEController,
+                  validator: (String? value){
+                    if(value?.isEmpty ?? true){
+                      return 'Enter your email address';
+                    }else if(value?.isEmail == false){
+                      return 'Enter your valid email address';
+                    }
+                    return null;
                   },
-                  child: Text("Text", style: TextStyle(color: Colors.white)),
+                  decoration: InputDecoration(
+                    hintText: "Email"
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if(_formKey.currentState!.validate()){
+                        Get.to(OtpVerificationScreen());
+                      }
+                    },
+                    child: Text("Text", style: TextStyle(color: Colors.white)),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
