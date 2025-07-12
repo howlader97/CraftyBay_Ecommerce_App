@@ -1,6 +1,4 @@
-
 import 'package:craftybay_ecommerce_app/presentation/state_holders/main_bottom_nav_controller.dart';
-import 'package:craftybay_ecommerce_app/presentation/ui/screens/category_list_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/product_list_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/image_assets.dart';

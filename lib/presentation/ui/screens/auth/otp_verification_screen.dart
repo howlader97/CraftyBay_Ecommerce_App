@@ -1,4 +1,6 @@
+import 'package:craftybay_ecommerce_app/presentation/state_holders/otp_verification_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/auth/complete_profile_screen.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/screens/main_bottom_nav_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,7 +9,21 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../utility/image_assets.dart';
 
 class OtpVerificationScreen extends StatelessWidget {
-  const OtpVerificationScreen({super.key});
+  final String email;
+   OtpVerificationScreen({super.key, required this.email});
+
+  final TextEditingController _otpTEController=TextEditingController();
+
+  Future<void> verifyOtp(OtpVerificationController otpController) async{
+    final response=await otpController.verifyOtp(email ,_otpTEController.text.trim());
+    print(response);
+    if (!response) {
+       Get.offAll(() => MainBottomNavScreen());
+    } else {
+      Get.snackbar('email verification failed! ', 'Try again',snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +52,7 @@ class OtpVerificationScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 PinCodeTextField(
+                  controller: _otpTEController,
                   length: 6,
                   obscureText: false,
                   animationType: AnimationType.fade,
@@ -69,11 +86,18 @@ class OtpVerificationScreen extends StatelessWidget {
                 const SizedBox(height: 14),
                 SizedBox(
                   width:MediaQuery.of(context).size.width,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.to(CompleteProfileScreen());
-                    },
-                    child: Text("Next", style: TextStyle(color: Colors.white)),
+                  child: GetBuilder<OtpVerificationController>(
+                    builder: (otpController) {
+                      if(otpController.otpVerificationInProgress){
+                        return Center(child: CircularProgressIndicator(),);
+                      }
+                      return ElevatedButton(
+                        onPressed: () {
+                          verifyOtp(otpController);
+                        },
+                        child: Text("Next", style: TextStyle(color: Colors.white)),
+                      );
+                    }
                   ),
                 ),
                 const SizedBox(height: 16),

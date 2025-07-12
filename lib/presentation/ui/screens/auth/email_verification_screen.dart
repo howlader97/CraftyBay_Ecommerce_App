@@ -10,7 +10,18 @@ class EmailVerificationScreen extends StatelessWidget {
 
   final TextEditingController _emailTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
-
+   Future<void> verifyEmail(EmailVerificationController emailController )async{
+     final response = await emailController.verifyEmail(
+       _emailTEController.text.trim(),
+     );
+     print("response -====== $response");
+     //here response = false
+     if (!response) {
+       Get.to(() =>  OtpVerificationScreen(email: _emailTEController.text.trim(),));
+     } else {
+       Get.snackbar('email verification failed! ', 'Try again',snackPosition: SnackPosition.BOTTOM);
+     }
+   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,22 +74,7 @@ class EmailVerificationScreen extends StatelessWidget {
                       return ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            final response = await emailController.verifyEmail(
-                              _emailTEController.text.trim(),
-                            );
-                            print("response -====== $response");
-                            //here response = false
-                            if (!response) {
-                              Get.to(() => const OtpVerificationScreen());
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    "email verification failed! Try again",
-                                  ),
-                                ),
-                              );
-                            }
+                            verifyEmail(emailController);
                           }
                         },
                         child: Text(
