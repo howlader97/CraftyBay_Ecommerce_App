@@ -14,7 +14,7 @@ class NetworkCaller {
             );
       log(response.statusCode.toString());
       log(response.body);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200  && jsonDecode(response.body)['status'] == 'success')  {
         return NetworkResponse(
             true, response.statusCode, jsonDecode(response.body));
       }else if (response.statusCode == 401) {

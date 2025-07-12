@@ -36,7 +36,7 @@ class OtpVerificationScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 PinCodeTextField(
-                  length: 4,
+                  length: 6,
                   obscureText: false,
                   animationType: AnimationType.fade,
                   keyboardType: TextInputType.number,

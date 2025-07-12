@@ -1,3 +1,4 @@
+import 'package:craftybay_ecommerce_app/presentation/state_holders/email_verification_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/auth/otp_verification_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/image_assets.dart';
 import 'package:flutter/material.dart';
@@ -5,10 +6,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class EmailVerificationScreen extends StatelessWidget {
-   EmailVerificationScreen({super.key});
+  EmailVerificationScreen({super.key});
 
-  final TextEditingController _emailTEController=TextEditingController();
-  final GlobalKey<FormState> _formKey=GlobalKey();
+  final TextEditingController _emailTEController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,9 @@ class EmailVerificationScreen extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 80),
-                Center(child: SvgPicture.asset(ImageAssets.baseUrl, width: 100)),
+                Center(
+                  child: SvgPicture.asset(ImageAssets.baseUrl, width: 100),
+                ),
                 const SizedBox(height: 14),
                 Text(
                   "Welcome Back",
@@ -39,28 +42,51 @@ class EmailVerificationScreen extends StatelessWidget {
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _emailTEController,
-                  validator: (String? value){
-                    if(value?.isEmpty ?? true){
+                  validator: (String? value) {
+                    if (value?.isEmpty ?? true) {
                       return 'Enter your email address';
-                    }else if(value?.isEmail == false){
+                    } else if (value?.isEmail == false) {
                       return 'Enter your valid email address';
                     }
                     return null;
                   },
-                  decoration: InputDecoration(
-                    hintText: "Email"
-                  ),
+                  decoration: InputDecoration(hintText: "Email"),
                 ),
                 const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if(_formKey.currentState!.validate()){
-                        Get.to(OtpVerificationScreen());
+                  child: GetBuilder<EmailVerificationController>(
+                    builder: (emailController) {
+                      if (emailController.emailVerificationInProgress) {
+                        return Center(child: CircularProgressIndicator());
                       }
+                      return ElevatedButton(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            final response = await emailController.verifyEmail(
+                              _emailTEController.text.trim(),
+                            );
+                            print("response -====== $response");
+                            //here response = false
+                            if (!response) {
+                              Get.to(() => const OtpVerificationScreen());
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    "email verification failed! Try again",
+                                  ),
+                                ),
+                              );
+                            }
+                          }
+                        },
+                        child: Text(
+                          "Text",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      );
                     },
-                    child: Text("Text", style: TextStyle(color: Colors.white)),
                   ),
                 ),
               ],
