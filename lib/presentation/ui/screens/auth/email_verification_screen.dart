@@ -10,18 +10,9 @@ class EmailVerificationScreen extends StatelessWidget {
 
   final TextEditingController _emailTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
-   Future<void> verifyEmail(EmailVerificationController emailController )async{
-     final response = await emailController.verifyEmail(
-       _emailTEController.text.trim(),
-     );
-     print("response -====== $response");
-     //here response = false
-     if (!response) {
-       Get.to(() =>  OtpVerificationScreen(email: _emailTEController.text.trim(),));
-     } else {
-       Get.snackbar('email verification failed! ', 'Try again',snackPosition: SnackPosition.BOTTOM);
-     }
-   }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,23 +57,25 @@ class EmailVerificationScreen extends StatelessWidget {
                 const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity,
-                  child: GetBuilder<EmailVerificationController>(
-                    builder: (emailController) {
-                      if (emailController.emailVerificationInProgress) {
-                        return Center(child: CircularProgressIndicator());
+                  child:  GetBuilder<EmailVerificationController>(
+                    builder: (controller) {
+                      if(controller.emailVerificationInProgress){
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
                       }
                       return ElevatedButton(
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            verifyEmail(emailController);
-                          }
-                        },
-                        child: Text(
-                          "Text",
-                          style: TextStyle(color: Colors.white),
-                        ),
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                verifyEmail(controller);
+                              }
+                            },
+                            child: Text(
+                              "Text",
+                              style: TextStyle(color: Colors.white),
+                            ),
                       );
-                    },
+                    }
                   ),
                 ),
               ],
@@ -91,5 +84,14 @@ class EmailVerificationScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  Future<void> verifyEmail(EmailVerificationController controller)async{
+    final response=await controller.verifyEmail(_emailTEController.text.trim());
+    print("respnse ... ${response}");
+    if(response){
+      Get.to(() => OtpVerificationScreen(email: _emailTEController.text.trim(),));
+    }else{
+      Get.snackbar("email verification failed!", 'Try again');
+    }
   }
 }

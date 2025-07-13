@@ -3,26 +3,25 @@ import 'package:craftybay_ecommerce_app/data/services/network_caller.dart';
 import 'package:craftybay_ecommerce_app/data/utility/urls.dart';
 import 'package:get/get.dart';
 
-class EmailVerificationController extends GetxController {
+class EmailVerificationController extends GetxController{
   bool _emailVerificationInProgress = false;
-   String _message = '';
+  String _message='';
 
   bool get emailVerificationInProgress => _emailVerificationInProgress;
-
   String get message => _message;
 
-  Future<bool> verifyEmail(String email) async {
-    _emailVerificationInProgress = true;
+  Future<bool> verifyEmail(String email) async{
+    _emailVerificationInProgress=true;
     update();
-    final NetworkResponse response = await NetworkCaller().getRequest(
-      Urls.verifyEmail(email),
-    );
-    _emailVerificationInProgress = false;
+    final NetworkResponse response = await NetworkCaller().getRequest(Urls.verifyEmail(email));
+    _emailVerificationInProgress=false;
     update();
-    if (response.isSuccess) {
-      _message= response.body?['data'];
+    print(response.body);
+    //if(response.statusCode ==200){
+    if(response.isSuccess){
+      _message=response.body?['data'] ?? '';
       return true;
-    } else {
+    }else{
       return false;
     }
   }

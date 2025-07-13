@@ -14,6 +14,8 @@ class StateHolderBinder extends Bindings{
     Get.put(EmailVerificationController());
     Get.put(OtpVerificationController());
 
+
+
   }
 
 }
