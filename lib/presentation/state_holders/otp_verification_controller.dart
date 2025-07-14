@@ -1,6 +1,7 @@
 import 'package:craftybay_ecommerce_app/data/model/network_response.dart';
 import 'package:craftybay_ecommerce_app/data/services/network_caller.dart';
 import 'package:craftybay_ecommerce_app/data/utility/urls.dart';
+import 'package:craftybay_ecommerce_app/presentation/state_holders/auth_controller.dart';
 import 'package:get/get.dart';
 
 class OtpVerificationController extends GetxController{
@@ -17,6 +18,7 @@ class OtpVerificationController extends GetxController{
     _otpVerificationInProgress=false;
     update();
     if(response.isSuccess){
+     await AuthController.setAccessToken(response.body?['data']);
       _message=response.body?['data'] ?? '';
       return true;
     }else{
