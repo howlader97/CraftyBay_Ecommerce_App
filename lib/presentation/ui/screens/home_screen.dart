@@ -1,3 +1,4 @@
+import 'package:craftybay_ecommerce_app/presentation/state_holders/home_slider_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/main_bottom_nav_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/product_list_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
@@ -50,8 +51,14 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
-              HomeSlider(),
+              const SizedBox(height: 10),
+
+                  GetBuilder<HomeSliderController>(
+                    builder: (homeSliderController) {
+                      return HomeSlider(sliders: homeSliderController.sliderModel.data ?? [],);
+                    }
+                  ),
+
               const SizedBox(height: 7),
               HomeSectionTitle(title: "Categories", onTap: () {
                 Get.find<MainBottomNavController>().changeIndex(1);

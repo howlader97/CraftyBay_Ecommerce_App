@@ -1,9 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:craftybay_ecommerce_app/data/model/slider_data.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class HomeSlider extends StatelessWidget {
-  HomeSlider({super.key});
+  final List<SliderData> sliders;
+
+  HomeSlider({super.key, required this.sliders});
+
   final ValueNotifier<int> _selectedSlider = ValueNotifier(0);
 
   @override
@@ -22,49 +26,51 @@ class HomeSlider extends StatelessWidget {
             },
           ),
           items:
-          [1, 2, 3, 4, 5].map((i) {
-            return Builder(
-              builder: (BuildContext context) {
-                return Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 5.0),
-                  decoration: BoxDecoration(
-                    color: Colors.amber,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'text $i',
-                      style: TextStyle(fontSize: 16.0),
-                    ),
-                  ),
+              sliders.map((sliderData) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(horizontal: 5),
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Image.network(
+                        sliderData.image ?? '',
+                        fit: BoxFit.cover,
+                        errorBuilder:
+                            (context, error, stackTrace) => Icon(Icons.error),
+                      ),
+                    );
+                  },
                 );
-              },
-            );
-          }).toList(),
+              }).toList(),
         ),
         const SizedBox(height: 15),
         ValueListenableBuilder(
           valueListenable: _selectedSlider,
           builder: (context, value, _) {
             List<Widget> list = [];
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < sliders.length; i++) {
               list.add(
                 Container(
                   height: 10,
                   width: 10,
                   margin: EdgeInsets.symmetric(horizontal: 4),
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                      color: value == i? AppColors.primaryColor: null
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10),
+                    color: value == i ? AppColors.primaryColor : null,
                   ),
                 ),
               );
             }
             return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: list);
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: list,
+            );
           },
         ),
       ],
