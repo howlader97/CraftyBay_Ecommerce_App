@@ -13,7 +13,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +55,14 @@ class HomeScreen extends StatelessWidget {
 
                   GetBuilder<HomeSliderController>(
                     builder: (homeSliderController) {
+                      if(homeSliderController.getHomeSliderInProgress){
+                        return SizedBox(
+                          height: 180,
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      }
                       return HomeSlider(sliders: homeSliderController.sliderModel.data ?? [],);
                     }
                   ),

@@ -35,13 +35,19 @@ class HomeSlider extends StatelessWidget {
                       padding: EdgeInsets.all(4),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(14),
                       ),
-                      child: Image.network(
-                        sliderData.image ?? '',
-                        fit: BoxFit.cover,
-                        errorBuilder:
-                            (context, error, stackTrace) => Icon(Icons.error),
+                      child: Column(
+                        children: [
+                          Image.network(
+                            sliderData.image ?? '',
+                            fit: BoxFit.cover,
+                          ),
+                          const SizedBox(height: 6),
+                          Text(sliderData.title ?? ''),
+                          Text(sliderData.price ?? ''),
+                          Text(sliderData.createdAt ?? ''),
+                        ],
                       ),
                     );
                   },
