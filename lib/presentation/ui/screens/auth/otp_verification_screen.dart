@@ -1,5 +1,4 @@
 import 'package:craftybay_ecommerce_app/presentation/state_holders/otp_verification_controller.dart';
-import 'package:craftybay_ecommerce_app/presentation/ui/screens/auth/complete_profile_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/main_bottom_nav_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
 import 'package:flutter/material.dart';
