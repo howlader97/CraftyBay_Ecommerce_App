@@ -1,3 +1,4 @@
+import 'package:craftybay_ecommerce_app/presentation/state_holders/category_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/home_slider_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/main_bottom_nav_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/cart_screen.dart';
@@ -26,6 +27,7 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_){
       Get.find<HomeSliderController>().getHomeSlider();
+      Get.find<CategoryController>().getCategories();
     });
     super.initState();
   }

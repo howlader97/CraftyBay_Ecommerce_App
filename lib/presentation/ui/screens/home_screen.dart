@@ -1,3 +1,5 @@
+
+ import 'package:craftybay_ecommerce_app/presentation/state_holders/category_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/home_slider_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/main_bottom_nav_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/product_list_screen.dart';
@@ -6,11 +8,13 @@ import 'package:craftybay_ecommerce_app/presentation/ui/utility/image_assets.dar
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/category_card.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/circular_icon_button.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/home/home_section_title.dart';
-import 'package:craftybay_ecommerce_app/presentation/ui/widgets/home/home_slider.dart';
-import 'package:craftybay_ecommerce_app/presentation/ui/widgets/product_card.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+ import 'package:craftybay_ecommerce_app/presentation/ui/widgets/home/home_slider.dart';
+ import 'package:craftybay_ecommerce_app/presentation/ui/widgets/product_card.dart';
+ import 'package:flutter/material.dart';
+ import 'package:flutter_svg/flutter_svg.dart';
+ import 'package:get/get.dart';
+
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -73,12 +77,26 @@ class HomeScreen extends StatelessWidget {
               }),
               SizedBox(
                 height: 90,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return CategoryCard();
-                  },
+                child: GetBuilder<CategoryController>(
+                  builder: (categoryController) {
+                    if(categoryController.getCategorySliderInProgress){
+                      return SizedBox(
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: categoryController.categoryModel.data?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        return CategoryCard(
+                          categoryData: categoryController.categoryModel.data![index],
+                          //  categoryData: categoryController.categoryModel.data![index]
+                        );
+                      },
+                    );
+                  }
                 ),
               ),
               const SizedBox(height: 3),

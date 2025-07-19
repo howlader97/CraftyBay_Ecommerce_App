@@ -29,7 +29,7 @@ class CategoryListScreen extends StatelessWidget {
             ),
             itemCount: 25,
             itemBuilder: (context,index){
-              return FittedBox(child: CategoryCard());
+              /*return *//*FittedBox(child: CategoryCard()*//*);*/
 
             }),
       ),
