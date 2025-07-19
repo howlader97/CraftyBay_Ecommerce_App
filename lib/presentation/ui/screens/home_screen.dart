@@ -92,7 +92,6 @@ class HomeScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return CategoryCard(
                           categoryData: categoryController.categoryModel.data![index],
-                          //  categoryData: categoryController.categoryModel.data![index]
                         );
                       },
                     );
