@@ -27,13 +27,13 @@ class ProductCard extends StatelessWidget {
               Container(
                 height: 100,
                 decoration: BoxDecoration(
-                  color: AppColors.primaryColor.withAlpha(20),
+                //  color: AppColors.primaryColor.withAlpha(100),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8),
                     topRight: Radius.circular(8),
                   ),
                 ),
-                child: Image.network(product.image ?? ''),
+                child: Image.network(product.image ?? '',fit: BoxFit.cover,width: double.infinity),
               ),
               Padding(
                 padding: const EdgeInsets.all(8),

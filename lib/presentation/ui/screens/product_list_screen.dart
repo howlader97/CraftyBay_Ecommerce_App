@@ -1,5 +1,5 @@
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
-import 'package:craftybay_ecommerce_app/presentation/ui/widgets/product_card.dart';
+
 import 'package:flutter/material.dart';
 
 class ProductListScreen extends StatelessWidget {
@@ -27,7 +27,8 @@ class ProductListScreen extends StatelessWidget {
             crossAxisSpacing: 16,
           ),
           itemBuilder: (context, index) {
-            return FittedBox(//child: ProductCard()
+            return FittedBox(//child: ProductCard(product: ,)
+
             );
           },
         ),
