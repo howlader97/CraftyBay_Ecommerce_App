@@ -1,7 +1,9 @@
 
- import 'package:craftybay_ecommerce_app/presentation/state_holders/category_controller.dart';
+ import 'package:craftybay_ecommerce_app/data/model/product_model.dart';
+import 'package:craftybay_ecommerce_app/presentation/state_holders/category_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/home_slider_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/main_bottom_nav_controller.dart';
+import 'package:craftybay_ecommerce_app/presentation/state_holders/product_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/product_list_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/image_assets.dart';
@@ -104,13 +106,23 @@ class HomeScreen extends StatelessWidget {
               }),
               SizedBox(
                 height: 170,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 20,
-                    itemBuilder: (context,index){
-                  return ProductCard();
-                }),
+                child: GetBuilder<ProductController>(
+                  builder: (productController) {
+                    if(productController.getPopularProductInProgress){
+                      return const Center(child: CircularProgressIndicator(),);
+                    }
+                    return ListView.builder(
+                      shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: productController.popularProductModel.data?.length ?? 0,
+                        itemBuilder: (context,index){
+                      return ProductCard(
+                        product: productController.popularProductModel.data![index],
+                      );
+                    }
+                     );
+                  }
+                ),
               ),
               const SizedBox(height: 3),
               HomeSectionTitle(title: "Special", onTap: () {
@@ -118,13 +130,13 @@ class HomeScreen extends StatelessWidget {
               }),
               SizedBox(
                 height: 170,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 20,
-                    itemBuilder: (context,index){
-                      return ProductCard();
-                    }),
+                // child: ListView.builder(
+                //     shrinkWrap: true,
+                //     scrollDirection: Axis.horizontal,
+                //     itemCount: 20,
+                //     itemBuilder: (context,index){
+                //       return ProductCard();
+                //     }),
               ),
               const SizedBox(height: 3),
               HomeSectionTitle(title: "New", onTap: () {
@@ -132,13 +144,13 @@ class HomeScreen extends StatelessWidget {
               }),
               SizedBox(
                 height: 170,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 20,
-                    itemBuilder: (context,index){
-                      return ProductCard();
-                    }),
+                // child: ListView.builder(
+                //     shrinkWrap: true,
+                //     scrollDirection: Axis.horizontal,
+                //     itemCount: 20,
+                //     itemBuilder: (context,index){
+                //       return ProductCard();
+                //     }),
               )
 
             ],

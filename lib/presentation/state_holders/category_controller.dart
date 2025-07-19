@@ -6,11 +6,11 @@ import 'package:get/get.dart';
 
 class CategoryController extends GetxController{
   bool _getCategorySliderInProgress=false;
-  String _message='';
+  String _errorMessage='';
   CategoryModel _categoryModel=CategoryModel();
 
   bool get getCategorySliderInProgress => _getCategorySliderInProgress;
-  String get message => _message;
+  String get errorMessage => _errorMessage;
   CategoryModel get categoryModel => _categoryModel;
 
   Future<bool> getCategories()async{
@@ -23,7 +23,7 @@ class CategoryController extends GetxController{
       update();
       return true;
     }else{
-      _message='data failed';
+      _errorMessage='data failed';
       update();
       return false;
     }

@@ -1,3 +1,4 @@
+import 'package:craftybay_ecommerce_app/data/model/product.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/product_details_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/image_assets.dart';
@@ -5,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  final Product product;
+  const ProductCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +33,14 @@ class ProductCard extends StatelessWidget {
                     topRight: Radius.circular(8),
                   ),
                 ),
-                child: Image.asset(ImageAssets.shoePng),
+                child: Image.network(product.image ?? ''),
               ),
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: Column(
                   children: [
                     Text(
-                      "Nike shoe Ak50490",
+                      product.title ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -51,7 +53,7 @@ class ProductCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "\$90",
+                         "${ product.price ?? 0}",
                           style: TextStyle(
                             color: AppColors.primaryColor,
                             fontWeight: FontWeight.w500,
@@ -66,7 +68,7 @@ class ProductCard extends StatelessWidget {
                               color: Colors.amber,
                             ),
                             Text(
-                              "4.5",
+                            "${ product.star ?? 0}",
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
