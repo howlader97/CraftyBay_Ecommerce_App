@@ -5,6 +5,7 @@ import 'package:craftybay_ecommerce_app/presentation/state_holders/main_bottom_n
 import 'package:craftybay_ecommerce_app/presentation/state_holders/new_product_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/otp_verification_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/popular_product_controller.dart';
+import 'package:craftybay_ecommerce_app/presentation/state_holders/product_details_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/selected_color_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/special_product_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/stepper_controller.dart';
@@ -23,7 +24,7 @@ class StateHolderBinder extends Bindings{
     Get.put(PopularProductController());
     Get.put(SpecialProductController());
     Get.put(NewProductController());
-
+    //Get.put(ProductDetailsController());
   }
 
 }

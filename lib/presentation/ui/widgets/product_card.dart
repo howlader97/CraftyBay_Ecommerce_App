@@ -13,7 +13,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(ProductDetailsScreen());
+        Get.to(ProductDetailsScreen(product: product,));
       },
       borderRadius: BorderRadius.circular(8),
       child: Card(

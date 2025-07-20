@@ -3,7 +3,8 @@ import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart'
 import 'package:flutter/material.dart';
 
 class ProductImageSlider extends StatelessWidget {
-  ProductImageSlider({super.key});
+  final List<String> imageList;
+  ProductImageSlider({super.key, required this.imageList});
   final ValueNotifier<int> _selectedSlider = ValueNotifier(0);
 
   @override
@@ -22,19 +23,14 @@ class ProductImageSlider extends StatelessWidget {
             },
           ),
           items:
-          [1, 2, 3, 4, 5].map((i) {
+          imageList.map((i) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
-                  width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade400
-                  ),
-                  child: Center(
-                    child: Text(
-                      'text $i',
-                      style: TextStyle(fontSize: 16.0),
-                    ),
+                    color: Colors.grey.shade400,
+
+                    image: DecorationImage(image: NetworkImage(i),),
                   ),
                 );
               },
@@ -50,7 +46,7 @@ class ProductImageSlider extends StatelessWidget {
             valueListenable: _selectedSlider,
             builder: (context, value, _) {
               List<Widget> list = [];
-              for (int i = 0; i < 5; i++) {
+              for (int i = 0; i < imageList.length; i++) {
                 list.add(
                   Container(
                     height: 10,

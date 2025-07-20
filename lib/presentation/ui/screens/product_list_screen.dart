@@ -1,5 +1,4 @@
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
-
 import 'package:flutter/material.dart';
 
 class ProductListScreen extends StatelessWidget {
