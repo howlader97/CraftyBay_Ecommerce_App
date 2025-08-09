@@ -29,7 +29,6 @@ class ProductImageSlider extends StatelessWidget {
                 return Container(
                   decoration: BoxDecoration(
                     color: Colors.grey.shade400,
-
                     image: DecorationImage(image: NetworkImage(i),),
                   ),
                 );

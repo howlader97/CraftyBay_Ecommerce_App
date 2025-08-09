@@ -1,19 +1,24 @@
 import 'package:craftybay_ecommerce_app/data/model/product.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/product_details_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
-import 'package:craftybay_ecommerce_app/presentation/ui/utility/image_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
-  const ProductCard({super.key, required this.product});
+
+  ProductCard({super.key, required this.product});
+
+  //final _productDetailsController = Get.put(ProductDetailsController());
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(ProductDetailsScreen(product: product,));
+        // print(" product id ....${product.id}");
+        // _productDetailsController.getProductDetails(9);
+        Get.to(ProductDetailsScreen(productId: product.id! ,));
+
       },
       borderRadius: BorderRadius.circular(8),
       child: Card(
@@ -27,13 +32,16 @@ class ProductCard extends StatelessWidget {
               Container(
                 height: 100,
                 decoration: BoxDecoration(
-                //  color: AppColors.primaryColor.withAlpha(100),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8),
                     topRight: Radius.circular(8),
                   ),
                 ),
-                child: Image.network(product.image ?? '',fit: BoxFit.cover,width: double.infinity),
+                child: Image.network(
+                  product.image ?? '',
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8),
@@ -53,7 +61,7 @@ class ProductCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                         "${ product.price ?? 0}",
+                          "${product.price ?? 0}",
                           style: TextStyle(
                             color: AppColors.primaryColor,
                             fontWeight: FontWeight.w500,
@@ -68,7 +76,7 @@ class ProductCard extends StatelessWidget {
                               color: Colors.amber,
                             ),
                             Text(
-                            "${ product.star ?? 0}",
+                              "${product.star ?? 0}",
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
