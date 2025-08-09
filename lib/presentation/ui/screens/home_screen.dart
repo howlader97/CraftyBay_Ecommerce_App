@@ -1,5 +1,4 @@
 
- import 'package:craftybay_ecommerce_app/data/model/product_model.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/category_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/home_slider_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/main_bottom_nav_controller.dart';
@@ -12,11 +11,11 @@ import 'package:craftybay_ecommerce_app/presentation/ui/utility/image_assets.dar
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/category_card.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/circular_icon_button.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/home/home_section_title.dart';
- import 'package:craftybay_ecommerce_app/presentation/ui/widgets/home/home_slider.dart';
- import 'package:craftybay_ecommerce_app/presentation/ui/widgets/product_card.dart';
- import 'package:flutter/material.dart';
- import 'package:flutter_svg/flutter_svg.dart';
- import 'package:get/get.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/widgets/home/home_slider.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/widgets/product_card.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 
 

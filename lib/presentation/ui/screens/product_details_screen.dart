@@ -1,3 +1,5 @@
+import 'package:craftybay_ecommerce_app/data/model/product_details.dart';
+import 'package:craftybay_ecommerce_app/presentation/state_holders/add_to_cart_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/product_details_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/selected_color_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
@@ -6,67 +8,79 @@ import 'package:craftybay_ecommerce_app/presentation/ui/widgets/home/product_ima
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
+class ProductDetailsScreen extends StatefulWidget {
+  final int productId;
 
-   ProductDetailsScreen({super.key,});
+  const ProductDetailsScreen({super.key, required this.productId});
 
+  @override
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   final List<Color> colors = [
     Colors.deepOrange,
     Colors.amber,
     Colors.blue,
     Colors.yellow,
-    Colors.black,
-    Colors.pink,
   ];
 
-  final List<String> sizes = ["S", "M", "L", "XL", "XXL"];
+  final List<String> sizes = ["x", "2x", "3x"];
 
-  final SelectedColorController _colorController = Get.put(
-    SelectedColorController(),
-  );
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<ProductDetailsController>().getProductDetails(widget.productId);
+    });
+    super.initState();
+  }
+
+  // final SelectedColorController _colorController = Get.put(
+  //   SelectedColorController(),
+  // );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetBuilder<ProductDetailsController>(
-        builder: (controller) {
-          if (controller.getProductDetailsInProgress) {
+        builder: (productDetailsController) {
+          if (productDetailsController.getProductDetailsInProgress) {
             return Center(child: CircularProgressIndicator());
           }
-          return SafeArea(
-            child: Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Stack(
-                          children: [
-                            ProductImageSlider(
-                                imageList: [
-                              controller.productDetailsList[0].img1!,
-                              controller.productDetailsList[0].img2!,
-                              controller.productDetailsList[0].img3!,
-                              controller.productDetailsList[0].img4!,
-                            ]),
-                            ProductDetailsAppBar,
-                          ],
-                        ),
-                        productDetails( ),
-                      ],
-                    ),
+          return Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Stack(
+                        children: [
+                          ProductImageSlider(
+                            imageList: [
+                              productDetailsController.productDetails.img1!,
+                              productDetailsController.productDetails.img2!,
+                              productDetailsController.productDetails.img3!,
+                              productDetailsController.productDetails.img3!,
+                              // controller.productDetailsList[0].img4!,
+                            ],
+                          ),
+                          ProductDetailsAppBar,
+                        ],
+                      ),
+                      productDetails(productDetailsController.productDetails),
+                    ],
                   ),
                 ),
-                cartToCartBottomContainer,
-              ],
-            ),
+              ),
+              cartToCartBottomContainer,
+            ],
           );
         },
       ),
     );
   }
 
-  Padding productDetails() {
+  Padding productDetails(ProductDetails productDetails) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -76,7 +90,8 @@ class ProductDetailsScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  '',
+                  // controller.productDetailsList[0].product!.title!,
+                  productDetails.product?.title ?? 'no title',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.blueGrey,
@@ -102,7 +117,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 children: [
                   Icon(Icons.star_border, size: 18, color: Colors.amber),
                   Text(
-                    '', //  "${product.star ?? ''}",
+                    "${productDetails.product?.star}", //  "${product.star ?? ''}",
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -154,12 +169,12 @@ class ProductDetailsScreen extends StatelessWidget {
                 return Obx(
                   () => InkWell(
                     borderRadius: BorderRadius.circular(20),
-                    onTap: () => _colorController.selectColor(index),
+                    onTap: () => SelectedColorController().selectColor(index),
                     child: CircleAvatar(
                       radius: 18,
                       backgroundColor: colors[index],
                       child:
-                          _colorController.selectedIndex.value == index
+                          SelectedColorController().selectedIndex.value == index
                               ? const Icon(
                                 Icons.done,
                                 color: Colors.white,
@@ -195,12 +210,12 @@ class ProductDetailsScreen extends StatelessWidget {
                 return Obx(
                   () => InkWell(
                     borderRadius: BorderRadius.circular(20),
-                    onTap: () => _colorController.selectedSizeIndex(index),
+                    onTap: () => SelectedColorController().selectedSizeIndex(index),
                     child: CircleAvatar(
                       radius: 18,
                       backgroundColor: AppColors.primaryColor,
                       child:
-                          _colorController.selectedSizeIndex.value == index
+                          SelectedColorController().selectedSizeIndex.value == index
                               ? Padding(
                                 padding: const EdgeInsets.all(1.0),
                                 child: Text(
@@ -211,7 +226,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                   ),
                                 ),
                               )
-                              : CircleAvatar(child: Text(sizes[index])),
+                              : CircleAvatar(child: Center(child: Text("${productDetails.size?.split(',') ?? []}"))),
                     ),
                   ),
                 );
@@ -232,7 +247,7 @@ class ProductDetailsScreen extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            '', // product.shortDes ?? '',
+            '${productDetails.product?.shortDes}', // product.shortDes ?? '',
           ),
         ],
       ),

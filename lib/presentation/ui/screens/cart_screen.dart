@@ -30,7 +30,7 @@ class CartScreen extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 shrinkWrap: true,
-                  itemCount:16,
+                  itemCount:4,
                   itemBuilder: (context,index){
                 return CartProductCart();
               }),
