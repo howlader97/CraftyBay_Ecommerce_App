@@ -16,7 +16,7 @@ class PopularProductController extends GetxController {
   Future<bool> getPopularProducts() async {
     _getPopularProductInProgress=true;
     update();
-    final NetworkResponse response = await NetworkCaller().getRequest(Urls.getProductByRemark('popular'),);
+    final NetworkResponse response = await NetworkCaller.getRequest(Urls.getProductByRemark('popular'),);
     _getPopularProductInProgress=false;
     if(response.isSuccess){
       _popularProductModel=ProductModel.fromJson(response.body ?? {});

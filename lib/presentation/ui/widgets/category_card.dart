@@ -5,33 +5,38 @@ import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {
   final CategoryData categoryData;
+  final VoidCallback onTap;
 
-  const CategoryCard({super.key, required this.categoryData});
+  const CategoryCard({super.key, required this.categoryData, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Column(
-          children: [
-            Container(
-              height: 63,
-              width: 70,
-              margin: EdgeInsets.symmetric(horizontal: 3),
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: AppColors.primaryColor.withAlpha(80),
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(8),
+      child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Column(
+            children: [
+              Container(
+                height: 63,
+                width: 70,
+                margin: EdgeInsets.symmetric(horizontal: 3),
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: AppColors.primaryColor.withAlpha(80),
+                ),
+                child: Image.network(categoryData.categoryImg ?? ''),
               ),
-              child: Image.network(categoryData.categoryImg ?? ''),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              categoryData.categoryName ?? '',
-              style: TextStyle(color: AppColors.primaryColor),
-            ),
-          ],
-        ),
+              const SizedBox(height: 6),
+              Text(
+                categoryData.categoryName ?? '',
+                style: TextStyle(color: AppColors.primaryColor),
+              ),
+            ],
+          ),
+      ),
     );
   }
 }

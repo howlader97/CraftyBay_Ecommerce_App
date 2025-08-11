@@ -14,7 +14,7 @@ class OtpVerificationController extends GetxController{
   Future<bool> verifyOtp(String email,String otp) async{
     _otpVerificationInProgress=true;
     update();
-    final NetworkResponse response=await NetworkCaller().getRequest(Urls.verifyOtp(email, otp));
+    final NetworkResponse response=await NetworkCaller.getRequest(Urls.verifyOtp(email, otp));
     _otpVerificationInProgress=false;
     update();
     if(response.isSuccess){

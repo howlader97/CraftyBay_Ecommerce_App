@@ -5,6 +5,7 @@ import 'package:craftybay_ecommerce_app/presentation/state_holders/selected_colo
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/custom_stepper.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/home/product_image_slider.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/widgets/size_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,6 +27,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   ];
 
   final List<String> sizes = ["x", "2x", "3x"];
+  int _selectedColorIndex = 0;
+  int _selectedSizeIndex = 0;
+  int quantity = 1;
 
   @override
   void initState() {
@@ -67,12 +71,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ProductDetailsAppBar,
                         ],
                       ),
-                      productDetails(productDetailsController.productDetails),
+                      productDetails(productDetailsController.productDetails,
+                          productDetailsController.availableColors),
                     ],
                   ),
                 ),
               ),
-              cartToCartBottomContainer,
+              cartToCartBottomContainer(
+                productDetailsController.productDetails,
+                productDetailsController.availableColors,
+                productDetailsController.availableSizes
+              ),
             ],
           );
         },
@@ -80,7 +89,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Padding productDetails(ProductDetails productDetails) {
+  Padding productDetails(ProductDetails productDetails, List<String> colors) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -161,33 +170,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           const SizedBox(height: 8),
           SizedBox(
             height: 28,
-            child: ListView.separated(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: colors.length,
-              itemBuilder: (context, index) {
-                return Obx(
-                  () => InkWell(
-                    borderRadius: BorderRadius.circular(20),
-                    onTap: () => SelectedColorController().selectColor(index),
-                    child: CircleAvatar(
-                      radius: 18,
-                      backgroundColor: colors[index],
-                      child:
-                          SelectedColorController().selectedIndex.value == index
-                              ? const Icon(
-                                Icons.done,
-                                color: Colors.white,
-                                size: 15,
-                              )
-                              : SizedBox.shrink(),
-                    ),
-                  ),
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(width: 8);
-              },
+            child: SizedBox(
+              height: 28,
+              child: SizePicker(
+                initialSelected: 0,
+                onSelected: (int selectedSize) {
+                  _selectedColorIndex = selectedSize;
+                },
+                sizes: productDetails.color?.split(',') ?? [],
+              ),
             ),
           ),
           const SizedBox(height: 5),
@@ -202,38 +193,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           const SizedBox(height: 5),
           SizedBox(
             height: 28,
-            child: ListView.separated(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: sizes.length,
-              itemBuilder: (context, index) {
-                return Obx(
-                  () => InkWell(
-                    borderRadius: BorderRadius.circular(20),
-                    onTap: () => SelectedColorController().selectedSizeIndex(index),
-                    child: CircleAvatar(
-                      radius: 18,
-                      backgroundColor: AppColors.primaryColor,
-                      child:
-                          SelectedColorController().selectedSizeIndex.value == index
-                              ? Padding(
-                                padding: const EdgeInsets.all(1.0),
-                                child: Text(
-                                  sizes[index],
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              )
-                              : CircleAvatar(child: Center(child: Text("${productDetails.size?.split(',') ?? []}"))),
-                    ),
-                  ),
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(width: 8);
-              },
+            child: SizedBox(
+              height: 28,
+              child: SizePicker(
+                initialSelected: 0,
+                onSelected: (int selectedSize) {
+                  _selectedSizeIndex = selectedSize;
+                },
+                sizes: productDetails.size?.split(',') ?? [],
+              ),
             ),
           ),
           const SizedBox(height: 5),
@@ -263,7 +231,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Container get cartToCartBottomContainer {
+  Container cartToCartBottomContainer(ProductDetails details, List<String> colors, List<String> sizes) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
@@ -300,9 +268,24 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
           SizedBox(
             width: 120,
-            child: ElevatedButton(
-              onPressed: () {},
-              child: Text("Add to Cart", style: TextStyle(color: Colors.black)),
+            child: GetBuilder<AddToCartController>(
+              builder: (addToCartController) {
+                if(addToCartController.addToCartInProgress){
+                  return Center(child: CircularProgressIndicator(),);
+                }
+                return ElevatedButton(
+                  onPressed: () async {
+                   final result = await  addToCartController.addToCart(details.id!, colors[_selectedColorIndex].toString(), sizes[_selectedSizeIndex], quantity,
+                    );
+                    if (result) {
+                      Get.snackbar('Added to cart',
+                          'This product has been added to cart list',
+                          snackPosition: SnackPosition.BOTTOM);
+                    }
+                  },
+                  child: Text("Add to Cart", style: TextStyle(color: Colors.black)),
+                );
+              }
             ),
           ),
         ],

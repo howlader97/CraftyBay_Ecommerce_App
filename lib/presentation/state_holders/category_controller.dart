@@ -16,7 +16,7 @@ class CategoryController extends GetxController{
   Future<bool> getCategories()async{
     _getCategorySliderInProgress=true;
     update();
-    final NetworkResponse response= await NetworkCaller().getRequest(Urls.getCategorySliders);
+    final NetworkResponse response= await NetworkCaller.getRequest(Urls.getCategorySliders);
     _getCategorySliderInProgress=false;
     if(response.isSuccess){
       _categoryModel=CategoryModel.fromJson(response.body ?? {});

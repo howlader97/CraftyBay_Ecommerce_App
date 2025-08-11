@@ -95,6 +95,9 @@ class HomeScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return CategoryCard(
                           categoryData: categoryController.categoryModel.data![index],
+                          onTap: (){
+                            Get.to(ProductListScreen(categoryId:categoryController.categoryModel.data![index].id!));
+                          },
                         );
                       },
                     );
@@ -103,7 +106,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 3),
               HomeSectionTitle(title: "Popular", onTap: () {
-                Get.to(ProductListScreen());
+               // Get.to(ProductListScreen());
               }),
               SizedBox(
                 height: 170,
@@ -127,7 +130,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 3),
               HomeSectionTitle(title: "Special", onTap: () {
-                Get.to(ProductListScreen());
+               // Get.to(ProductListScreen());
               }),
               SizedBox(
                 height: 170,
@@ -148,7 +151,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 3),
               HomeSectionTitle(title: "New", onTap: () {
-                Get.to(ProductListScreen());
+               // Get.to(ProductListScreen());
               }),
               SizedBox(
                 height: 170,

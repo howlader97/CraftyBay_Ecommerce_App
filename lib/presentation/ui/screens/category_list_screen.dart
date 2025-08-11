@@ -1,5 +1,6 @@
 import 'package:craftybay_ecommerce_app/presentation/state_holders/category_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/main_bottom_nav_controller.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/screens/product_list_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/category_card.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,9 @@ class CategoryListScreen extends StatelessWidget {
                   itemBuilder: (context,index){
                     return FittedBox(child: CategoryCard(
                       categoryData: categoryController.categoryModel.data![index],
+                      onTap: (){
+                        Get.to(ProductListScreen(categoryId: categoryController.categoryModel.data![index].id!));
+                      },
                     ));
 
                   });
