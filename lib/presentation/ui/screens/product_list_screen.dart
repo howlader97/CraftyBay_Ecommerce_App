@@ -1,3 +1,5 @@
+import 'package:craftybay_ecommerce_app/data/model/product.dart';
+import 'package:craftybay_ecommerce_app/data/model/product_model.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/product_list_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/product_card.dart';
@@ -5,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductListScreen extends StatefulWidget {
-  final int categoryId;
-  const ProductListScreen({super.key, required this.categoryId});
+  final int? categoryId;
+  final ProductModel?  productModel;
+
+  const ProductListScreen({super.key, this.categoryId, this.productModel});
 
   @override
   State<ProductListScreen> createState() => _ProductListScreenState();
@@ -15,11 +19,18 @@ class ProductListScreen extends StatefulWidget {
 class _ProductListScreenState extends State<ProductListScreen> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_){
-      Get.find<ProductListController>().getProductsByCategory(widget.categoryId);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.categoryId != null) {
+        Get.find<ProductListController>().getProductsByCategory(
+          widget.categoryId!,
+        );
+      }else if(widget.productModel != null){
+        Get.find<ProductListController>().setProducts(widget.productModel!);
+      }
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,13 +45,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
       ),
       body: GetBuilder<ProductListController>(
         builder: (productListController) {
-          if(productListController.getProductsInProgress){
-            return const Center(child: CircularProgressIndicator(),);
+          if (productListController.getProductsInProgress) {
+            return const Center(child: CircularProgressIndicator());
           }
-          if(productListController.productModel.data?.isEmpty ?? true){
-            return const Center(
-              child:  Text('Empty List'),
-            );
+          if (productListController.productModel.data?.isEmpty ?? true) {
+            return const Center(child: Text('Empty List'));
           }
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -54,14 +63,14 @@ class _ProductListScreenState extends State<ProductListScreen> {
               ),
               itemBuilder: (context, index) {
                 return FittedBox(
-                    child: ProductCard(
-                  product: productListController.productModel.data![index],)
-
+                  child: ProductCard(
+                    product: productListController.productModel.data![index],
+                  ),
                 );
               },
             ),
           );
-        }
+        },
       ),
     );
   }
