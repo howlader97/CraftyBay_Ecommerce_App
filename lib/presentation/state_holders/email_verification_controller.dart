@@ -20,6 +20,7 @@ class EmailVerificationController extends GetxController{
     //if(response.statusCode ==200){
     if(response.isSuccess){
       _message=response.body?['data'] ?? '';
+      print(_message);
       return true;
     }else{
       return false;

@@ -25,7 +25,6 @@ class HomeSliderController extends GetxController{
     }else{
       update();
       return false;
-
     }
   }
 }

@@ -1,28 +1,39 @@
-import 'package:craftybay_ecommerce_app/data/model/network_response.dart';
-import 'package:craftybay_ecommerce_app/data/services/network_caller.dart';
+import 'package:craftybay_ecommerce_app/data/services/add_to_cart_request_api.dart';
 import 'package:craftybay_ecommerce_app/data/utility/urls.dart';
+import 'package:craftybay_ecommerce_app/presentation/state_holders/auth_controller.dart';
 import 'package:get/get.dart';
+
+import '../ui/screens/auth/email_verification_screen.dart';
 
 class AddToCartController extends GetxController{
   bool _addToCartInProgress=false;
   bool get addToCartInProgress => _addToCartInProgress;
 
-  Future<bool> addToCart(int productId,String color, String size, int quantity)async{
+  Future<dynamic> addToCart(int productId,String color, String size, int quantity)async{
 
-    _addToCartInProgress=false;
+    _addToCartInProgress=true;
     update();
-    final NetworkResponse response=await NetworkCaller.postRequest(Urls.addToCart,{
+    final  response=await AddToCartApiServices.addToCartRequest(Urls.addToCart,{
       "product_id":productId,
       "color":color,
       "size":size,
+      "qty":quantity
     });
     _addToCartInProgress=false;
     update();
-    if(response.isSuccess){
+    if(response.statusCode == 200){
       return true;
-    }else{
+    }else if(response.statusCode == 401){
+          goToLogin();
+    }
+    else{
       return false;
     }
+  }
+
+  static Future<void> goToLogin()async{
+    await AuthController.clear();
+    Get.offAll(() => EmailVerificationScreen());
   }
 
 }

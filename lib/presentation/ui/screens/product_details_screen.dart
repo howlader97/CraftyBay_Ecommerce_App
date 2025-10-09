@@ -1,7 +1,6 @@
 import 'package:craftybay_ecommerce_app/data/model/product_details.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/add_to_cart_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/product_details_controller.dart';
-import 'package:craftybay_ecommerce_app/presentation/state_holders/selected_color_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/custom_stepper.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/home/product_image_slider.dart';
@@ -19,14 +18,9 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  final List<Color> colors = [
-    Colors.deepOrange,
-    Colors.amber,
-    Colors.blue,
-    Colors.yellow,
-  ];
 
-  final List<String> sizes = ["x", "2x", "3x"];
+
+  //final List<String> sizes = ["x", "2x", "3x"];
   int _selectedColorIndex = 0;
   int _selectedSizeIndex = 0;
   int quantity = 1;
@@ -65,7 +59,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               productDetailsController.productDetails.img2!,
                               productDetailsController.productDetails.img3!,
                               productDetailsController.productDetails.img3!,
-                              // controller.productDetailsList[0].img4!,
                             ],
                           ),
                           ProductDetailsAppBar,
@@ -80,7 +73,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               cartToCartBottomContainer(
                 productDetailsController.productDetails,
                 productDetailsController.availableColors,
-                productDetailsController.availableSizes
+                productDetailsController.availableSizes,
+
               ),
             ],
           );
@@ -99,7 +93,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             children: [
               Expanded(
                 child: Text(
-                  // controller.productDetailsList[0].product!.title!,
                   productDetails.product?.title ?? 'no title',
                   style: TextStyle(
                     fontSize: 18,
@@ -231,7 +224,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Container cartToCartBottomContainer(ProductDetails details, List<String> colors, List<String> sizes) {
+  Container cartToCartBottomContainer(ProductDetails details, List<String> colors, List<String> sizes,) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
@@ -257,7 +250,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               const SizedBox(height: 4),
               Text(
-                "\$509",
+                details.product?.price ?? 'no price',
                 style: TextStyle(
                   fontSize: 18,
                   color: AppColors.primaryColor,
@@ -278,7 +271,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                    final result = await  addToCartController.addToCart(details.id!, colors[_selectedColorIndex].toString(), sizes[_selectedSizeIndex], quantity,
                     );
                     if (result) {
-                      Get.snackbar('Added to cart',
+                      Get.snackbar('Success',
                           'This product has been added to cart list',
                           snackPosition: SnackPosition.BOTTOM);
                     }

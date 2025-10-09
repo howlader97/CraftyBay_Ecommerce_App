@@ -15,11 +15,15 @@ class OtpVerificationController extends GetxController{
     _otpVerificationInProgress=true;
     update();
     final NetworkResponse response=await NetworkCaller.getRequest(Urls.verifyOtp(email, otp));
+
     _otpVerificationInProgress=false;
     update();
     if(response.isSuccess){
+      print("remon/////////");
+      print(response.body?['data']);
      await AuthController.setAccessToken(response.body?['data']);
-      _message=response.body?['data'] ?? '';
+      //_message=response.body?['data'] ?? '';
+      print("response from otp controller ${response.body?['data'] ??"token is null"}");
       return true;
     }else{
       return false;

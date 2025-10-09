@@ -5,15 +5,18 @@ class AuthController{
   static String? get accessToken => _accessToken;
 
   static Future<void> setAccessToken(String token)async{
-    final SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
-    await sharedPreferences.setString("access_token", token);
-    _accessToken=token;
+  final SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+  await sharedPreferences.setString("access_token", token);
+  _accessToken=token;
   }
 
- static Future<void> getAccessToken()async{
-    final SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
-    _accessToken=sharedPreferences.getString("access_token");
+  static Future<String?> getAccessToken() async {
+    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    _accessToken = sharedPreferences.getString("access_token");
+    return _accessToken;
   }
+
+
   static Future<void> clear()async{
     final SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
     await sharedPreferences.clear();
@@ -22,5 +25,4 @@ class AuthController{
  static bool get isLoggedIn{
     return _accessToken != null;
   }
-
 }

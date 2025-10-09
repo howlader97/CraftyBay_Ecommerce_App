@@ -1,10 +1,12 @@
 
+import 'package:craftybay_ecommerce_app/presentation/state_holders/auth_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/category_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/home_slider_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/main_bottom_nav_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/new_product_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/popular_product_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/special_product_controller.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/screens/auth/email_verification_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/product_list_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/image_assets.dart';
@@ -30,7 +32,10 @@ class HomeScreen extends StatelessWidget {
           children: [
             SvgPicture.asset(ImageAssets.logoNavSvg),
             Spacer(),
-            CircularIconButton(icon: Icons.person, onTap: () {}),
+            CircularIconButton(icon: Icons.person, onTap: () async {
+              await AuthController.clear();
+              Get.off(() => EmailVerificationScreen());
+            }),
             const SizedBox(width: 8),
             CircularIconButton(icon: Icons.call, onTap: () {}),
             const SizedBox(width: 8),

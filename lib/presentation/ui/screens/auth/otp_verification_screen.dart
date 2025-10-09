@@ -143,6 +143,7 @@ class OtpVerificationScreen extends StatelessWidget {
       email,
       _otpTEController.text.trim(),
     );
+    print("response from verify screen $response");
     if (response) {
       Get.offAll(() => MainBottomNavScreen());
     } else {

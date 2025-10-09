@@ -38,12 +38,13 @@ class NetworkCaller {
         Uri.parse(url),
         headers: {
           'Content-Type': 'application/json',
-          'token': AuthController.accessToken.toString()
+          'Authorization': 'Bearer ${AuthController.accessToken}'
         },
         body: jsonEncode(body),
       );
       log(response.statusCode.toString());
       log(response.body);
+      print(AuthController.accessToken);
       if (response.statusCode == 200) {
         return NetworkResponse(
           true,
@@ -70,4 +71,5 @@ class NetworkCaller {
         MaterialPageRoute(builder: (context) =>  EmailVerificationScreen()),
             (route) => false);
   }
+
 }
