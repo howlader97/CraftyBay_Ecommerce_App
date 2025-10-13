@@ -19,6 +19,7 @@ class ProductCard extends StatelessWidget {
         // _productDetailsController.getProductDetails(9);
         Get.to(ProductDetailsScreen(productId: product.id! ,));
 
+
       },
       borderRadius: BorderRadius.circular(8),
       child: Card(

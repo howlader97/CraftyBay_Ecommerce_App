@@ -1,3 +1,4 @@
+import 'package:craftybay_ecommerce_app/presentation/state_holders/cart_list_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/main_bottom_nav_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/widgets/cart_product_cart.dart';
@@ -25,65 +26,72 @@ class CartScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                  itemCount:4,
-                  itemBuilder: (context,index){
-                return CartProductCart();
-              }),
-            ),
-
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              decoration: BoxDecoration(
-                color: AppColors.primaryColor.withAlpha(20),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
+        child: GetBuilder<CartListController>(
+          builder: (cartListController) {
+            if(cartListController.cartListInProgress){
+              return Center(child: CircularProgressIndicator(),);
+            }
+            return Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                      itemCount:cartListController.cartListModel.data?.length ?? 0,
+                      itemBuilder: (context,index){
+                    return CartProductCart(cartData: cartListController.cartListModel.data![index],);
+                  }),
                 ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryColor.withAlpha(20),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "price",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black54,
-                          fontWeight: FontWeight.w700,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Total price",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black54,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            "\$${cartListController.totalPrice}",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: AppColors.primaryColor,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        "\$509",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.w700,
+                      SizedBox(
+                        width: 120,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: Text(
+                            "checkout",
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    width: 120,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "checkout",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+                ),
+              ],
+            );
+          }
         ),
       ),
     );

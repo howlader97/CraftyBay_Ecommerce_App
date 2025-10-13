@@ -1,93 +1,94 @@
-import 'package:craftybay_ecommerce_app/presentation/state_holders/stepper_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-
-class CustomStepper extends StatelessWidget {
-  final int lowerLimit;
-  final int upperLimit;
-  final int stepValue;
-  final int initialValue;
-  final Function(int) onChange;
-
+@immutable
+class CustomStepper extends StatefulWidget {
   CustomStepper({
     super.key,
     required this.lowerLimit,
     required this.upperLimit,
     required this.stepValue,
-    required this.initialValue,
+    required this.value,
     required this.onChange,
   });
 
-  final StepperController _controller = Get.find();
+  final int lowerLimit;
+  final int upperLimit;
+  final int stepValue;
+  int value;
+  final Function(int) onChange;
 
   @override
-  Widget build(BuildContext context) {
-    _controller.setup(
-      lower: lowerLimit,
-      upper: upperLimit,
-      step: stepValue,
-      initial: initialValue,
-    );
+  _CustomStepperState createState() => _CustomStepperState();
+}
 
+class _CustomStepperState extends State<CustomStepper> {
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50),
-      ),
-      child: Obx(() => Row(
+          borderRadius: BorderRadius.circular(50)),
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           InkWell(
             borderRadius: BorderRadius.circular(30),
-            onTap: () {
-              _controller.decrement();
-              onChange(_controller.value.value);
-            },
             child: Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: AppColors.primaryColor,
-                borderRadius: BorderRadius.circular(3),
+                  color: AppColors.primaryColor,
+                  borderRadius: BorderRadius.circular(3)
               ),
               child: const Icon(
                 Icons.remove,
-                color: Colors.black54,
+                color: Colors.white,
                 size: 18,
               ),
             ),
+            onTap: () {
+              widget.value = widget.value == widget.lowerLimit
+                  ? widget.lowerLimit
+                  : widget.value -= widget.stepValue;
+              widget.onChange(widget.value);
+              setState(() {});
+            },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              '${_controller.value}',
+              '${widget.value}',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 color: Colors.black,
               ),
+              textAlign: TextAlign.center,
             ),
           ),
           InkWell(
             borderRadius: BorderRadius.circular(30),
-            onTap: () {
-              _controller.increment();
-              onChange(_controller.value.value);
-            },
             child: Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: AppColors.primaryColor,
-                borderRadius: BorderRadius.circular(3),
+                  color: AppColors.primaryColor,
+                  borderRadius: BorderRadius.circular(3)
               ),
               child: const Icon(
                 Icons.add,
-                color: Colors.black54,
+                color: Colors.white,
                 size: 18,
               ),
             ),
+            onTap: () {
+              widget.value = widget.value == widget.upperLimit
+                  ? widget.upperLimit
+                  : widget.value += widget.stepValue;
+              widget.onChange(widget.value);
+              setState(() {});
+            },
           ),
         ],
-      )),
+      ),
     );
   }
 }

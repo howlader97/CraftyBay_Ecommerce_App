@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MainBottomNavScreen extends StatefulWidget {
-   MainBottomNavScreen({super.key});
+  const MainBottomNavScreen({super.key});
 
   @override
   State<MainBottomNavScreen> createState() => _MainBottomNavScreenState();

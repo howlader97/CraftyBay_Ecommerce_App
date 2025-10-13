@@ -1,6 +1,7 @@
 import 'package:craftybay_ecommerce_app/data/services/add_to_cart_request_api.dart';
 import 'package:craftybay_ecommerce_app/data/utility/urls.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/auth_controller.dart';
+import 'package:craftybay_ecommerce_app/presentation/state_holders/cart_list_controller.dart';
 import 'package:get/get.dart';
 
 import '../ui/screens/auth/email_verification_screen.dart';
@@ -22,6 +23,7 @@ class AddToCartController extends GetxController{
     _addToCartInProgress=false;
     update();
     if(response.statusCode == 200){
+       Get.find<CartListController>().getCartList();
       return true;
     }else if(response.statusCode == 401){
           goToLogin();

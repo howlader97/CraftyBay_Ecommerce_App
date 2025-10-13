@@ -1,4 +1,5 @@
 import 'package:craftybay_ecommerce_app/presentation/state_holders/add_to_cart_controller.dart';
+import 'package:craftybay_ecommerce_app/presentation/state_holders/cart_list_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/category_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/email_verification_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/home_slider_controller.dart';
@@ -17,7 +18,6 @@ class StateHolderBinder extends Bindings{
   @override
   void dependencies() {
     Get.put(MainBottomNavController());
-    Get.put(StepperController());
     Get.put(SelectedColorController());
     Get.put(EmailVerificationController());
     Get.put(OtpVerificationController());
@@ -29,6 +29,7 @@ class StateHolderBinder extends Bindings{
     Get.put(ProductDetailsController());
     Get.put(AddToCartController());
     Get.put(ProductListController());
+    Get.put(CartListController());
 
   }
 

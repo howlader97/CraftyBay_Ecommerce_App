@@ -105,7 +105,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 lowerLimit: 1,
                 upperLimit: 10,
                 stepValue: 1,
-                initialValue: 1,
+                value: 1,
                 onChange: (newValue) {
                   print(newValue);
                 },
