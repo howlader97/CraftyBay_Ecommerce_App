@@ -12,7 +12,7 @@
 
 Login screen                    |   SignUp Screen          |  Admin HomeScreen |  User Management
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-![Media](https://github.com/user-attachments/assets/images/image.1.PNG|![Media (1)](https://github.com/user-attachments/assets/55b6e4d8-f810-436a-b306-7fe9227c85f8)|![Media (2)](https://github.com/user-attachments/assets/6576e4d8-81cb-477a-9ca4-690d00b9ad10)|![Media (3)](https://github.com/user-attachments/assets/0154ce73-4d98-4feb-83d0-295f0be2438d)
+![Media](assets/images/image.1.PNG|![Media (1)](https://github.com/user-attachments/assets/55b6e4d8-f810-436a-b306-7fe9227c85f8)|![Media (2)](https://github.com/user-attachments/assets/6576e4d8-81cb-477a-9ca4-690d00b9ad10)|![Media (3)](https://github.com/user-attachments/assets/0154ce73-4d98-4feb-83d0-295f0be2438d)
 
 
 
