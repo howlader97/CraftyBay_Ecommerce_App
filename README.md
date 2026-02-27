@@ -10,18 +10,9 @@
 
 ## Screenshots (Light mode)
 
-Login screen                    |   SignUp Screen          |  Admin HomeScreen |  User Management
-:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-![Media](assets/images/image.1.PNG)image.1.PNG|![Media (1)](https://github.com/user-attachments/assets/55b6e4d8-f810-436a-b306-7fe9227c85f8)|![Media (2)](https://github.com/user-attachments/assets/6576e4d8-81cb-477a-9ca4-690d00b9ad10)|![Media (3)](https://github.com/user-attachments/assets/0154ce73-4d98-4feb-83d0-295f0be2438d)
-
-
-
-## Screenshots (Light mode)
-
-Create group        |   Group DetailsScreen           |  Payment Management     |  Profile Screen
-:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-![Media (4)](https://github.com/user-attachments/assets/d17f107a-5987-47f5-a9f0-a2fe6d83d186)|![Media (6)](https://github.com/user-attachments/assets/aa4b2a24-f7d7-46eb-b82f-49d96570af6f)|![Media (7)](https://github.com/user-attachments/assets/582e2586-f68b-4efb-945b-eaf61b1ac5f9)|![Media (8)](https://github.com/user-attachments/assets/bca6731c-3c38-44b1-8ab9-f2a1a2ad1726)
-
+Login screen                    |    SignUp Screen     |                                 Admin HomeScreen                                  |  User Management
+:-------------------------:|:--------------------:|:---------------------------------------------------------------------------------:|:-------------------------:
+![Media](assets/images/image.1.PNG)image.1.PNG| ![Media (1)](assets/images/image.1.PNG) | ![Media (2)](assets/images/image.1.PNG)![image.2.PNG](assets/images/image.2.PNG)) |![Media (3)](assets/images/image.1.PNG)![image.3.PNG](assets/images/image.3.PNG)![image.4.PNG](assets/images/image.4.PNG))
 
 
 ## 🚀 Features :
