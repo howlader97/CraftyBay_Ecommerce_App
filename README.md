@@ -10,8 +10,6 @@
 
 ## Screenshots (Light mode)
 
-Login screen                    |    SignUp Screen     |                                 Admin HomeScreen                                  |  User Management
-:-------------------------:|:--------------------:|:---------------------------------------------------------------------------------:|:-------------------------:
 ![Media](assets/images/image.1.PNG)image.1.PNG| ![Media (1)](assets/images/image.1.PNG) | ![Media (2)](assets/images/image.1.PNG)![image.2.PNG](assets/images/image.2.PNG)) |![Media (3)](assets/images/image.1.PNG)![image.3.PNG](assets/images/image.3.PNG)![image.4.PNG](assets/images/image.4.PNG))
 
 
