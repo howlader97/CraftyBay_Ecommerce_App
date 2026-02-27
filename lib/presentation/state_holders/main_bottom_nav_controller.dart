@@ -1,3 +1,4 @@
+
 import 'package:get/get.dart';
 
 class MainBottomNavController extends GetxController{
@@ -12,4 +13,5 @@ class MainBottomNavController extends GetxController{
   void backToHome(){
     changeIndex(0);
   }
+
 }

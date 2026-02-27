@@ -1,17 +1,25 @@
+import 'package:craftybay_ecommerce_app/data/model/product.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/product_details_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/app_colors.dart';
-import 'package:craftybay_ecommerce_app/presentation/ui/utility/image_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  final Product product;
+
+  ProductCard({super.key, required this.product});
+
+  //final _productDetailsController = Get.put(ProductDetailsController());
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(ProductDetailsScreen());
+        // print(" product id ....${product.id}");
+        // _productDetailsController.getProductDetails(9);
+        Get.to(ProductDetailsScreen(productId: product.id! ,));
+
+
       },
       borderRadius: BorderRadius.circular(8),
       child: Card(
@@ -25,20 +33,23 @@ class ProductCard extends StatelessWidget {
               Container(
                 height: 100,
                 decoration: BoxDecoration(
-                  color: AppColors.primaryColor.withAlpha(20),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8),
                     topRight: Radius.circular(8),
                   ),
                 ),
-                child: Image.asset(ImageAssets.shoePng),
+                child: Image.network(
+                  product.image ?? '',
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: Column(
                   children: [
                     Text(
-                      "Nike shoe Ak50490",
+                      product.title ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -51,7 +62,7 @@ class ProductCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "\$90",
+                          "${product.price ?? 0}",
                           style: TextStyle(
                             color: AppColors.primaryColor,
                             fontWeight: FontWeight.w500,
@@ -66,7 +77,7 @@ class ProductCard extends StatelessWidget {
                               color: Colors.amber,
                             ),
                             Text(
-                              "4.5",
+                              "${product.star ?? 0}",
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,

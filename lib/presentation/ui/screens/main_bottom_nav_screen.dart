@@ -1,4 +1,9 @@
+import 'package:craftybay_ecommerce_app/presentation/state_holders/category_controller.dart';
+import 'package:craftybay_ecommerce_app/presentation/state_holders/home_slider_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/state_holders/main_bottom_nav_controller.dart';
+import 'package:craftybay_ecommerce_app/presentation/state_holders/new_product_controller.dart';
+import 'package:craftybay_ecommerce_app/presentation/state_holders/popular_product_controller.dart';
+import 'package:craftybay_ecommerce_app/presentation/state_holders/special_product_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/cart_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/category_list_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/home_screen.dart';
@@ -6,15 +11,33 @@ import 'package:craftybay_ecommerce_app/presentation/ui/screens/wish_list_screen
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MainBottomNavScreen extends StatelessWidget {
-   MainBottomNavScreen({super.key});
+class MainBottomNavScreen extends StatefulWidget {
+  const MainBottomNavScreen({super.key});
 
+  @override
+  State<MainBottomNavScreen> createState() => _MainBottomNavScreenState();
+}
+
+class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   List<Widget> _screens= [
     HomeScreen(),
     CategoryListScreen(),
     CartScreen(),
     WishListScreen(),
   ];
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      Get.find<HomeSliderController>().getHomeSlider();
+      Get.find<CategoryController>().getCategories();
+      Get.find<PopularProductController>().getPopularProducts();
+      Get.find<SpecialProductController>().getSpecialProducts();
+      Get.find<NewProductController>().getNewProducts();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<MainBottomNavController>(

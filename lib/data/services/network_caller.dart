@@ -1,24 +1,27 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:craftybay_ecommerce_app/application/app.dart';
 import 'package:craftybay_ecommerce_app/data/model/network_response.dart';
+import 'package:craftybay_ecommerce_app/presentation/state_holders/auth_controller.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/screens/auth/email_verification_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-
-
 class NetworkCaller {
-  Future<NetworkResponse> getRequest(String url) async {
+  /// get request method
+  static Future<NetworkResponse> getRequest(String url) async {
     try {
-      // log(url);
       Response response = await get(Uri.parse(url),
-        //  headers: {'token': AuthUtility.userInfo.token.toString()}
-            );
+          headers: {
+            'token': AuthController.accessToken.toString()
+          });
       log(response.statusCode.toString());
       log(response.body);
-      if (response.statusCode == 200  && jsonDecode(response.body)['status'] == 'success')  {
+      if (response.statusCode == 200) {
         return NetworkResponse(
             true, response.statusCode, jsonDecode(response.body));
-      }else if (response.statusCode == 401) {
-        goToLogin();
+      } else if (response.statusCode == 401) {
+        gotoLogin();
       } else {
         return NetworkResponse(false, response.statusCode, null);
       }
@@ -28,23 +31,29 @@ class NetworkCaller {
     return NetworkResponse(false, -1, null);
   }
 
-  Future<NetworkResponse> postRequest(
-      String url, Map<String, dynamic> body,{bool isLogin=false}) async {
+  static Future<NetworkResponse> postRequest(String url, Map<String, dynamic> body,
+      {bool isLogin = false}) async {
     try {
-      Response response = await post(Uri.parse(url),
-          headers: {
-            'Content-Type': 'application/json',
-           // 'token': AuthUtility.userInfo.token.toString()
-          },
-          body: jsonEncode(body));
+      Response response = await post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${AuthController.accessToken}'
+        },
+        body: jsonEncode(body),
+      );
       log(response.statusCode.toString());
       log(response.body);
+      print(AuthController.accessToken);
       if (response.statusCode == 200) {
         return NetworkResponse(
-            true, response.statusCode, jsonDecode(response.body));
+          true,
+          response.statusCode,
+          jsonDecode(response.body),
+        );
       } else if (response.statusCode == 401) {
-        if(isLogin ==false) {
-          goToLogin();
+        if (isLogin == false) {
+          gotoLogin();
         }
       } else {
         return NetworkResponse(false, response.statusCode, null);
@@ -55,11 +64,12 @@ class NetworkCaller {
     return NetworkResponse(false, -1, null);
   }
 
-  void goToLogin() {
-    // Navigator.pushAndRemoveUntil(
-    //     TaskManagerApp.globalKey.currentContext!,
-    //     MaterialPageRoute(builder: (context) => const LoginScreen()),
-    //         (route) => false);
+  static Future<void> gotoLogin() async {
+    await AuthController.clear();
+    Navigator.pushAndRemoveUntil(
+        CraftyBay.globalKey.currentContext!,
+        MaterialPageRoute(builder: (context) =>  EmailVerificationScreen()),
+            (route) => false);
   }
-}
 
+}

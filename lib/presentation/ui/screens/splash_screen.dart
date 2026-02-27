@@ -1,4 +1,6 @@
+import 'package:craftybay_ecommerce_app/presentation/state_holders/auth_controller.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/screens/auth/email_verification_screen.dart';
+import 'package:craftybay_ecommerce_app/presentation/ui/screens/main_bottom_nav_screen.dart';
 import 'package:craftybay_ecommerce_app/presentation/ui/utility/image_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,8 +22,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void gotoNextScreen() async {
+   AuthController.getAccessToken();
     Future.delayed(Duration(seconds: 2)).then((value) {
-     Get.offAll(EmailVerificationScreen());
+     Get.offAll(() => AuthController.isLoggedIn ? MainBottomNavScreen() :EmailVerificationScreen());
     });
   }
   @override
